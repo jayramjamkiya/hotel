@@ -1,0 +1,99 @@
+<odoo>
+    <record id="sequence_booking_reference" model="ir.sequence">
+        <field name="name">Booking Reference</field>
+        <field name="code">booking.booking</field>
+        <field name="prefix">B</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <!--      Tree view   -->
+    <record id="booking_tree_view" model="ir.ui.view">
+        <field name="name">booking.tree</field>
+        <field name="model">booking.booking</field>
+        <field name="arch" type="xml">
+            <tree sample="1" multi_edit="1">
+                <field name="Booking_Reference"/>
+                <field name="Check_in_date"/>
+                <field name="Check_out_date"/>
+                <field name="room_type"/>
+                <field name="example"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--     Form view   -->
+    <record id="booking_form_view" model="ir.ui.view">
+        <field name="name">booking.form</field>
+        <field name="model">booking.booking</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="Booking_Reference"/>
+                            <field name="Check_in_date"/>
+                            <field name="Check_out_date"/>
+                            <field name="booking_date" default_focus="1"/>
+                        </group>
+                        <group>
+                            <field name="Customer_name_id" widget="many2one_avatar"/>
+                            <field name="order_id"/>
+                            <field name="room_type"/>
+                            <field name="room_number_ids"/>
+                            <field name="active" invisible="1"/>
+                            <field name="room_facility_ids" widget="many2many_tags"/>
+                            <field name="example"/>
+                        </group>
+                        <group>
+                            <button name="book_room"
+                                    type="object"
+                                    class="oe_highlight"
+                                    string="Book Room"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <!--    search view in method -->
+    <record id="booking_search" model="ir.ui.view">
+        <field name="name">booking.search</field>
+        <field name="model">booking.booking</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="filter_archive" string="Archive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="group by">
+                    <!--                    <filter string="room_type" name="room_type" context="{'group_by':'room_type'}"/>-->
+                </group>
+                <!--                <searchpanel>-->
+                <!--                    <field name="room_type" icon="fa-users" enable_counters="1"/>-->
+                <!--                </searchpanel>-->
+            </search>
+        </field>
+    </record>
+
+    <record id="booking_menu_action" model="ir.actions.act_window">
+        <field name="name">booking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">booking.booking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_room_type': 1, 'search_default_room_type_single': 1}</field>
+        <!--<field name="context">{'default_room_type':'double','default_Customer_name_id':28}</field>-->
+        <!--        <field name="domain">[('room_type', '=', 'single')]</field>-->
+    </record>
+    <menuitem id="booking_menus"
+              name="booking"
+              parent="hotel_management_menu_root"
+              action="booking_menu_action"/>
+
+    <menuitem id="booking_history_report_menu"
+              name="Reporting"
+              parent="hotel_management_menu_root"
+              action="report_wizard_action"/>
+</odoo>

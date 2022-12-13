@@ -1,0 +1,66 @@
+<odoo>
+
+    <!--      Tree view   -->
+    <record id="room_tree_view" model="ir.ui.view">
+        <field name="name">room.tree</field>
+        <field name="model">room.room</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="room_number"/>
+                <field name="room_type"/>
+                <field name="facility_ids"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+    <!--     Form view   -->
+    <record id="room_form_view" model="ir.ui.view">
+        <field name="name">room.form</field>
+        <field name="model">room.room</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!--                    wizard button in booking.booking object -->
+                    <button name="action_booked"
+                            string="Booked"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="1"/>
+                    <button name="action_not_booked"
+                            type="object"
+                            string="Not Booked"
+                            class="oe_highlight"/>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="booked,not booked"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="room_number"/>
+                        <field name="room_type"/>
+                        <field name="facility_ids" widget="many2many_tags"/>
+                        <!--                        <field name="state"/>-->
+                    </group>
+                    <!--                    #notebook in used to odoo-->
+                    <notebook>
+                        <page string="description" name="description">
+                            <field name="description" placeholder="Enter your description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="room_menu_action" model="ir.actions.act_window">
+        <field name="name">room</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">room.room</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem id="room_menus"
+              name="room"
+              parent="hotel_management_menu_root"
+              action="room_menu_action"/>
+</odoo>

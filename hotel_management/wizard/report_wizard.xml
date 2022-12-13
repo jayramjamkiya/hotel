@@ -1,0 +1,30 @@
+<odoo>
+    <record id="report_wizard_form" model="ir.ui.view">
+        <field name="name">report.wizard.form</field>
+        <field name="model">report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group name="doctor_details" string="Doctor Details">
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_report" type="object" string="Print Report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Report Wizard Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="view_id" ref="report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

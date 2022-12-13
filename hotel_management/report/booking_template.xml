@@ -1,0 +1,64 @@
+<odoo>
+    <template id="report_booking_history">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <!--                 <t t-foreach="docs" t-as="doc"> -->
+                <div class="page">
+                    <div class="text-center">
+                        <h1>
+                            <u>
+                                <em>Booking History</em>
+                            </u>
+                        </h1>
+                    </div>
+                    <div>
+                        Start Date:
+                        <t t-esc="report_start_date"/>
+                    </div>
+                    <div>
+                        End Date:
+                        <t t-esc="report_end_date"/>
+                    </div>
+                    <div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="font-weight-bold bg-light" style="font-size:16px;">
+                                    <th name="booking_date" class="text-left">booking date</th>
+                                    <th name="customer_name_id" class="text-right">customer name id</th>
+                                    <th name="check_in_date" class="text-right">check in date</th>
+                                    <th name="check_out_date" class="text-right">check out date</th>
+                                    <th name="room_number" class="text-right">room number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <div class="history_tbody">
+                                    <t t-set="history_count" t-value="0"/>
+                                    <t t-foreach="booked_history" t-as="line">
+                                        <t t-set="history_count" t-value="history_count + 1"/>
+                                        <tr t-att-class="'font-weight-bold o_line_section'">
+                                            <td name="booking_date" style="font-size:14px;">
+                                                <span class="text-capitalize" t-esc="line['booking_date']"/>
+                                            </td>
+                                            <td name="customer_name_id" class="text-right" style="font-size:14px;">
+                                                <span t-esc="line['Customer_name_id'] and line['Customer_name_id'][1]"/>
+                                            </td>
+                                            <td name="check_in_date" class="text-right" style="font-size:14px;">
+                                                <span t-esc="line['Check_in_date']"/>
+                                            </td>
+                                            <td name="check_out_date" class="text-right" style="font-size:14px;">
+                                                <span t-esc="line['Check_out_date']"/>
+                                            </td>
+                                            <td name="room_number" class="text-right" style="font-size:14px;">
+                                                <span t-esc="line['room_number_ids'] and line['room_number_ids'][1]"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,49 @@
+<odoo>
+    <!--      Tree view   -->
+    <record id="booking_history_tree_view" model="ir.ui.view">
+        <field name="name">booking.history.tree</field>
+        <field name="model">booking.history</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="Booking_Reference"/>
+                <field name="customer_name"/>
+                <field name="booking_date"/>
+                <field name="check_in_date"/>
+                <field name="check_out_date"/>
+            </tree>
+        </field>
+    </record>
+    <!--     Form view   -->
+    <record id="booking_history_form_view" model="ir.ui.view">
+        <field name="name">booking.history.form</field>
+        <field name="model">booking.history</field>
+        <field name="arch" type="xml">
+            <form creat="false" edit="false">
+                <sheet>
+                    <group>
+                        <field name="Booking_Reference"/>
+                        <field name="customer_name"/>
+                        <field name="booking_date"/>
+                        <field name="check_in_date"/>
+                    </group>
+                    <group>
+                        <field name="check_out_date"/>
+                        <field name="room_type"/>
+                        <field name="room_number"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="booking_history_menu_action" model="ir.actions.act_window">
+        <field name="name">booking history</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">booking.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem id="booking_history_menus"
+              name="history"
+              parent="hotel_management_menu_root"
+              action="booking_history_menu_action"/>
+</odoo>

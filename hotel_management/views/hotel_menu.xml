@@ -1,0 +1,4 @@
+<odoo>
+    <menuitem id="hotel_management_menu_root"
+              name="Hotel Management"/>
+</odoo>
